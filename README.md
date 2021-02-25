@@ -1,1 +1,1 @@
-Algoritmo de ordenamiento mergesort aplicado aun arreglo unidimensional.
+Algoritmo de ordenamiento mergesort aplicado a un arreglo unidimensional.
