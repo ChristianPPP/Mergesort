@@ -1,114 +1,101 @@
-
 #include <iostream>
 
 #include <ctime>
 
 #include <fstream>
 
+#include "heapsortlib.h"
+
 
 using namespace std;
+void imprimir(int b[], int n);
 
-void dividir(int a[], int inicial, int final);
-void fusionar(int a[],int pinicial,int pfinal,int medio);
-
-
-
-
+void ingresor(int b[], int n);
+void ingresoma(int b[], int n);
 
 
 int main()
 {
-  ofstream mergesort;
-  mergesort.open("mergesort", ios::app);
-  mergesort<<"Arreglo original:\n";
-    int A[10];
-    //COMENZAR CON LA SEMILLA
-    srand(time(0));
-
-    for(int i=0; i< 7; i++)
+  int A[10],op, n;
+  ofstream heapsort;
+  heapsort.open("heapsort.txt", ios::out);
+    cout<<"\t\t\t\tORDENAMIENTO HEAPSORT"<<endl;
+    cout<<"\nINGRESE EL TAMAÑO DEL ARREGLO:";
+    cin>>n;
+    heapsort<<"ARREGLO DE TAMAÑO:"<<n<<endl;
+    cout<<"\nMENU\n1.- INGRESAR ELEMENTOS DE FORMA ALEATORIA\n2.- INGRESAR ELEMENTOS DE FORMA MANUAL\nOPCION:";
+    cin>>op;
+    switch (op){
+    case 1:
     {
-        //LLENAR EL ARREGLO CON VALORES DESDE EL 1 HASTA EL 19
-        A[i]=1+rand()%(50-1);
-    }
-
-
-    for(int i=0; i< 7; i++)
+      ingresor(A, n);
+      cout<<"\n\nELEMENTOS INGRESADOS\n"<<endl;
+      heapsort<<"\nELEMENTOS INGRESADOS\n"<<endl;
+      for(int i=1; i<=n; i++)
+      {
+        heapsort<<"|"<<A[i]<<"|";
+      }
+      imprimir(A, n); 
+      cout<<endl;
+      heapsort<<endl;
+      cout<<"\n\nELEMENTOS ORDENADOS POR HEAPSORT\n"<<endl<<endl;
+      heapsort<<"\nELEMENTOS ORDENADOS POR HEAPSORT\n"<<endl;      
+      HeapSort(A, n);
+      imprimir(A, n);
+      for(int i=1; i<=n; i++)
+      {
+        heapsort<<"|"<<A[i]<<"|";
+      }
+    }break;
+    case 2:
     {
-      cout<<"|"<<A[i]<<"|";
-      mergesort<<"|"<<A[i]<<"|";
+      ingresoma(A, n);
+      cout<<"\n\nELEMENTOS INGRESADOS\n"<<endl;
+      heapsort<<"\n\nELEMENTOS INGRESADOS\n"<<endl;
+      for(int i=1; i<=n; i++)
+      {
+        heapsort<<"|"<<A[i]<<"|";
+      }
+      heapsort<<endl;
+      imprimir(A, n);
+      cout<<endl;
+      cout<<"\n\nELEMENTOS ORDENADOS POR HEAPSORT\n"<<endl<<endl;
+      heapsort<<"\nELEMENTOS ORDENADOS POR HEAPSORT\n"<<endl;      
+      HeapSort(A, n);
+      imprimir(A, n);
+      for(int i=1; i<=n; i++)
+      {
+        heapsort<<"|"<<A[i]<<"|";
+      }
+    }break;
+  heapsort.close();
     }
-    cout<<endl;
-    mergesort<<endl;
-    dividir(A,0,6);
-    cout<<endl;
-    mergesort<<endl;
-    mergesort<<"Arreglo ordenado usando el algoritmo de ordenamiento Merge Sort:\n";
-    for(int i=0; i< 7; i++)
-    {
-      cout<<"|"<<A[i]<<"|";
-      mergesort<<"|"<<A[i]<<"|";
-    }
-
-
-    return 0;
+  return 0;
 }
 
-
-
-void dividir(int a[], int inicial, int final)
+void imprimir(int b[], int n)
 {
-    int mitad;
-    if(inicial < final)
-    {
-        mitad=(inicial+final)/2;
-        dividir(a,inicial,mitad);
-        dividir(a,mitad+1,final);
-        fusionar(a,inicial,final,mitad);
-    }
-
-
+  for(int i=1; i<=n;i++)
+  {
+    cout<<"|"<<b[i]<<"|";
+  }
 }
 
 
-
-void fusionar(int a[],int pinicial,int pfinal,int medio)
+void ingresor(int a[],int n)
 {
-    int i,j,k, temp[pfinal-pinicial+1];
-    i=pinicial;
-    k=0;
-    j=medio+1;
-
-    while(i<=medio && j<=pfinal)
-    {
-        if(a[i]<a[j])
-        {
-            temp[k]=a[i];
-            k++;
-            i++;
-        }
-        else
-        {
-            temp[k]=a[j];
-            k++;
-            j++;
-        }
-    }
-    while (i<=medio)
-    {
-        temp[k] = a[i];
-        k++;
-        i++;
-    }
-    while(j<=pfinal)
-    {
-        temp[k]=a[j];
-        k++;
-        j++;
-    }
-
-    for(i=pinicial; i<=pfinal; i++)
-    {
-        a[i]= temp[i-pinicial];
-    }
+  srand(time(0));
+  for(int i=1;i<=n;i++)
+  {
+    a[i]=1+rand()%(10-99);
+  }
 }
 
+void ingresoma(int b[], int n)
+{
+  for(int i=1; i<=n; i++)
+  {
+    cout<<endl<<"\tELEMENTO ["<<i<<"]:";
+    cin>>b[i];
+  }
+}
